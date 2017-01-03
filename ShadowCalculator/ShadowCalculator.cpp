@@ -24,10 +24,14 @@ double xrchance = 0.925;
 double chance[11] = { 0,0,0,0,0,0,0,0,0,0,0 };
 double xchance[11] = { 0,0,0,0,0,0,0,0,0,0,0 };
 double avg;
+double scoreavg;
+double stdv;
 double scoreChance[11];
 double CalcChance(double L, double E, double R, double C);
 double CalcChance(double L, double E, double R);
 bool eighteen = false;
+
+
 
 
 void GenStandard() {
@@ -161,6 +165,11 @@ void CalcScore() {
 	scoreChance[0] = 1 - scoreChance[1] - scoreChance[2] - scoreChance[3] - scoreChance[4] - scoreChance[5] - scoreChance[6] - scoreChance[7] - scoreChance[8] - scoreChance[9] - scoreChance[10];
 }
 
+void CalcScoreAvg() {
+	scoreavg = scoreChance[0] * 1 + scoreChance[1] * 2 + scoreChance[2] * 3 + scoreChance[3] * 4 + scoreChance[4] * 5 + scoreChance[5] * 6 + scoreChance[6] * 7 + scoreChance[7] * 8 + scoreChance[8] * 9 + scoreChance[9] * 10 + scoreChance[10] * 18;
+	stdv = sqrt(pow(scoreChance[0], 2) * 1 + pow(scoreChance[1], 2) * 2 + pow(scoreChance[2], 2) * 3 + pow(scoreChance[3], 2) * 4 + pow(scoreChance[4], 2) * 5 + pow(scoreChance[5], 2) * 6 + pow(scoreChance[6], 2) * 7 + pow(scoreChance[7], 2) * 8 + pow(scoreChance[8], 2) * 9 + pow(scoreChance[9], 2) * 10 + pow(scoreChance[10], 2) * 18);
+}
+
 void PrintResult() {
 	cout.precision(dbl::max_digits10);
 	for (int i = 0; i < 10; i++) {
@@ -176,6 +185,8 @@ void PrintResult() {
 	if (eighteen) {
 		cout << "Chance for " << 18 << " score is " << fixed << scoreChance[10] << endl;
 	}
+	cout << "The average score is " << fixed << scoreavg << endl;
+	cout << "The standard deviation is " << fixed << stdv << endl;
 }
 int _tmain(int argc, _TCHAR argv)
 {
@@ -205,6 +216,7 @@ int _tmain(int argc, _TCHAR argv)
 	GenChance();
 	CalcAvg();
 	CalcScore();
+	CalcScoreAvg();
 	PrintResult();
     return 0;
 }
